@@ -16,6 +16,9 @@ int main() {
 	int opcion;
 	string usuario , contrasena , nombre;
 	listaUsuario =archivo->leerUsuario();
+	for (int i = 0 ; i < listaUsuario.size() ; i++){
+		cout << listaUsuario[i]->getUsser() << " " << listaUsuario[i]->getPassword() << endl;
+	}
 	do{
 		cout << "1.Ingresar\n2.Registrar\n3.Salir\nIngrese una opcion:";
 		cin>>opcion;

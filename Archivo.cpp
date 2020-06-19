@@ -28,7 +28,7 @@ bool Archivo::abrirEscritura(){
 	return outputFile.is_open();
 }
 vector<Usuario*> Archivo::leerUsuario(){
-	ifstream inputFile("Usuario.csv");
+	ifstream inputFile("Usuarios.csv");
 	vector<Usuario*>retval;
 	if(inputFile.is_open()){
 		while(!inputFile.eof()){
@@ -43,9 +43,9 @@ vector<Usuario*> Archivo::leerUsuario(){
 			getline(myStream,usuario,';');
 			getline(myStream,contra,';');
 			getline(myStream,post,';');
-			getline((stringstream)post,titulo,',');
 			Usuario* usuariocargado = new Usuario(name,usuario,contra);
-			string auxiliar = "";
+			cout << usuariocargado->getUsser() << endl;
+			/*string auxiliar = "";
 			for(int i = 1 ; i < post.size() ; i++){
 				if(post[i] == '|'){
 					posts.push_back(auxiliar);
@@ -88,9 +88,8 @@ vector<Usuario*> Archivo::leerUsuario(){
 				}else{
 					auxiliar+=post[i];
 				}
-			}
+			}*/
 			retval.push_back(usuariocargado);
-			delete usuariocargado ;
 		}
 		inputFile.close();
 		return retval;	
