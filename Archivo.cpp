@@ -79,12 +79,12 @@ vector<Usuario*> Archivo::leerUsuario(){
 						}
 						auxiliar = "";
 						if(cont == 4){
+
 							stringstream myStream2(likess);
 							myStream2 >> like;
 							stringstream myStream3(hatess);
-							myStream2 >> hate;
+							myStream3 >> hate;
 							usuariocargado->setPost(new Post(titulo,contenido,like,hate));
-							
 							cont = 1;
 						}else{
 							cont++;

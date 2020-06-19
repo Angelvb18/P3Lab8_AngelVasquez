@@ -90,7 +90,11 @@ void Inicio(vector<Usuario*>& Lista, Usuario*& Yo){
 					string a ;
 					cout << "Contenido:";
 	                getline(cin,a);
+	                getline(cin,a);
 	                Lista[sigoA]->getPosts()[posipost]->setComentario(new Comentario(Yo->getUsser(),a));
+	                archivo->abrirEscritura();
+				    archivo->guardarUsuarios(Lista);
+				    archivo->cerrarEscritura();
 				}else{
 					cout << "No sigue a nadie"<<endl;
 				}
@@ -105,6 +109,9 @@ void Inicio(vector<Usuario*>& Lista, Usuario*& Yo){
 					cout << "Numero de post:";
 					cin >> posipost;
 					Lista[sigoA]->getPosts()[posipost]->setLikes();
+					archivo->abrirEscritura();
+				    archivo->guardarUsuarios(Lista);
+				    archivo->cerrarEscritura();
 				}else{
 					cout << "No sigue a nadie"<<endl;
 				}
@@ -119,6 +126,9 @@ void Inicio(vector<Usuario*>& Lista, Usuario*& Yo){
 					cout << "Numero de post:";
 					cin >> posipost;
 					Lista[sigoA]->getPosts()[posipost]->setHates();
+					archivo->abrirEscritura();
+					archivo->guardarUsuarios(Lista);
+					archivo->cerrarEscritura();
 				}else{
 					cout << "No sigue a nadie"<<endl;
 				}
