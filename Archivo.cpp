@@ -7,11 +7,12 @@ Archivo::Archivo(string pFileName)
 }
 bool Archivo::guardarUsuarios(vector<Usuario*>usuarios){
 	if(outputFile.is_open()){
+		
 		for (int i = 0 ; i < usuarios.size() ; i++){
 			outputFile << usuarios[i]->getNombre() <<';'<<usuarios[i]->getUsser()<<';'<<usuarios[i]->getPassword() <<';';
 			for(int j = 0 ; j < usuarios[i]->getPosts().size() ; j++ ){
-				outputFile <<'|'<< usuarios[i]->getPosts()[j]->getTitulo() <<','<<usuarios[i]->getPosts()[j]->getContenido()<<','<<usuarios[i]->getPosts()[j]->getLikes()
-				<<','<< usuarios[i]->getPosts()[j]->getHates() << ',';
+				outputFile << usuarios[i]->getPosts()[j]->getTitulo() <<','<<usuarios[i]->getPosts()[j]->getContenido()<<','<<usuarios[i]->getPosts()[j]->getLikes()
+				<<','<< usuarios[i]->getPosts()[j]->getHates() << ','<<'|';
 			}
 			if(i != usuarios.size()-1){
 				outputFile << '\n';
@@ -47,58 +48,53 @@ vector<Usuario*> Archivo::leerUsuario(){
 			getline(myStream,post,';');
 			Usuario* usuariocargado = new Usuario(name,usuario,contra);
 			string auxiliar = "";
-			cout << post << endl;
 			for(int i = 1 ; i < post.size() ; i++){
-				if(post[i] == '|' || i == post.size()-1){
+				if(post[i] == '|' ){
 					posts.push_back(auxiliar);
 					auxiliar = "";
 				}else{
 					auxiliar+=post[i];
 				}
 			}
-			for (int i = 0 ; i < posts.size() ; i++){
-				cout << post[i] << endl;
-			}
 			int cont = 1;
 			auxiliar = "";
 			for(int i = 0 ; i < posts.size() ; i++){
-				if(post[i] == ','){
-					if(cont == 1){
-						titulo = auxiliar;
-					}else{
-						if(cont == 2 ){
-							contenido = auxiliar;
+               for(int j = 0 ; j < posts[i].size() ; j++){
+               		if(posts[i][j] == ','){
+						if(cont == 1){
+							titulo = auxiliar;
 						}else{
-							if(cont == 3){
-								likess = auxiliar;
+							if(cont == 2 ){
+								contenido = auxiliar;
 							}else{
-								if(cont == 4){
-									hatess = auxiliar;
+								if(cont == 3){
+									likess = auxiliar;
+								}else{
+									if(cont == 4){
+										hatess = auxiliar;
+									}
 								}
+								
 							}
-							
 						}
-					}
-					auxiliar = "";
-					if(cont == 4){
-						stringstream myStream2(likess);
-						myStream2 >> like;
-						stringstream myStream3(hatess);
-						myStream2 >> hate;
-						usuariocargado->setPost(new Post(titulo,contenido,like,hate));
-						
-						cont = 1;
-					}else{
-						cont++;
-					}
+						auxiliar = "";
+						if(cont == 4){
+							stringstream myStream2(likess);
+							myStream2 >> like;
+							stringstream myStream3(hatess);
+							myStream2 >> hate;
+							usuariocargado->setPost(new Post(titulo,contenido,like,hate));
+							
+							cont = 1;
+						}else{
+							cont++;
+						}
 				}else{
-					auxiliar+=post[i];
-				}
+					auxiliar+=posts[i][j];
+				}		              		
 			}
-
-			retval.push_back(usuariocargado);
-			
-			
+		}
+			retval.push_back(usuariocargado);	
 		}
 		inputFile.close();
 		return retval;	
