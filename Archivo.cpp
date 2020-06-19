@@ -13,7 +13,9 @@ bool Archivo::guardarUsuarios(vector<Usuario*>usuarios){
 				outputFile <<'|'<< usuarios[i]->getPosts()[j]->getTitulo() <<','<<usuarios[i]->getPosts()[j]->getContenido()<<','<<usuarios[i]->getPosts()[j]->getLikes()
 				<<','<< usuarios[i]->getPosts()[j]->getHates() << ',';
 			}
-			outputFile<<'\n';
+			if(i != usuarios.size()-1){
+				outputFile << '\n';
+			}
 		}
 		return true;
 	}else
@@ -44,15 +46,18 @@ vector<Usuario*> Archivo::leerUsuario(){
 			getline(myStream,contra,';');
 			getline(myStream,post,';');
 			Usuario* usuariocargado = new Usuario(name,usuario,contra);
-			cout << usuariocargado->getUsser() << endl;
-			/*string auxiliar = "";
+			string auxiliar = "";
+			cout << post << endl;
 			for(int i = 1 ; i < post.size() ; i++){
-				if(post[i] == '|'){
+				if(post[i] == '|' || i == post.size()-1){
 					posts.push_back(auxiliar);
 					auxiliar = "";
 				}else{
 					auxiliar+=post[i];
 				}
+			}
+			for (int i = 0 ; i < posts.size() ; i++){
+				cout << post[i] << endl;
 			}
 			int cont = 1;
 			auxiliar = "";
@@ -81,6 +86,7 @@ vector<Usuario*> Archivo::leerUsuario(){
 						stringstream myStream3(hatess);
 						myStream2 >> hate;
 						usuariocargado->setPost(new Post(titulo,contenido,like,hate));
+						
 						cont = 1;
 					}else{
 						cont++;
@@ -88,8 +94,11 @@ vector<Usuario*> Archivo::leerUsuario(){
 				}else{
 					auxiliar+=post[i];
 				}
-			}*/
+			}
+
 			retval.push_back(usuariocargado);
+			
+			
 		}
 		inputFile.close();
 		return retval;	

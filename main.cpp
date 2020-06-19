@@ -11,14 +11,12 @@ using namespace std;
 
 void Inicio(vector<Usuario*>& , Usuario*&);
 Archivo* archivo = new Archivo("Usuarios.csv"); 
+void Leercadenas(string&,string&);
 int main() {
 	vector<Usuario*>listaUsuario;
 	int opcion;
 	string usuario , contrasena , nombre;
 	listaUsuario =archivo->leerUsuario();
-	for (int i = 0 ; i < listaUsuario.size() ; i++){
-		cout << listaUsuario[i]->getUsser() << " " << listaUsuario[i]->getPassword() << endl;
-	}
 	do{
 		cout << "1.Ingresar\n2.Registrar\n3.Salir\nIngrese una opcion:";
 		cin>>opcion;
@@ -65,5 +63,96 @@ int main() {
 	}while(opcion!=3);
 }
 void Inicio(vector<Usuario*>& Lista, Usuario*& Yo){
-	
+	cout << "Bienvenido " << Yo->getNombre() << endl;
+    
+	int opcion2,sigoA =-1;
+	do{
+		cout << "1.Crear post\n2.Comentar post\n3.Dar like\n4.Dar hate\n5.Seguir usuario\n6.Dejar de seguir a un usuario\n7.Salir\nIngrese una opcion:";
+		cin >> opcion2;
+		switch(opcion2){
+			case 1:{
+			    string titulo,contenido;
+				Leercadenas(titulo,contenido);
+				Yo->setPost(new Post(titulo,contenido));
+				archivo->abrirEscritura();
+				archivo->guardarUsuarios(Lista);
+				archivo->cerrarEscritura();
+				break;
+			}
+			case 2:{
+				if(sigoA != -1){
+					int posipost;
+					for(int i = 0 ; i <Lista[sigoA]->getPosts().size() ; i++){
+						cout << i <<"."<<Lista[sigoA]->getPosts()[i]->getTitulo() << " " << Lista[sigoA]->getPosts()[i]->getContenido() << endl;
+					}
+					cout << "Numero de post:";
+					cin >> posipost;
+					string a ;
+					cout << "Contenido:";
+	                getline(cin,a);
+	                Lista[sigoA]->getPosts()[posipost]->setComentario(new Comentario(Yo->getUsser(),a));
+				}else{
+					cout << "No sigue a nadie"<<endl;
+				}
+				break;
+			}
+			case 3:{
+				if(sigoA != -1){
+					int posipost;
+					for(int i = 0 ; i <Lista[sigoA]->getPosts().size() ; i++){
+						cout << i <<"."<<Lista[sigoA]->getPosts()[i]->getTitulo() << " " << Lista[sigoA]->getPosts()[i]->getContenido() << endl;
+					}
+					cout << "Numero de post:";
+					cin >> posipost;
+					Lista[sigoA]->getPosts()[posipost]->setLikes();
+				}else{
+					cout << "No sigue a nadie"<<endl;
+				}
+				break;
+			}
+			case 4:{
+				if(sigoA != -1){
+					int posipost;
+					for(int i = 0 ; i <Lista[sigoA]->getPosts().size() ; i++){
+						cout << i <<"."<<Lista[sigoA]->getPosts()[i]->getTitulo() << " " << Lista[sigoA]->getPosts()[i]->getContenido() << endl;
+					}
+					cout << "Numero de post:";
+					cin >> posipost;
+					Lista[sigoA]->getPosts()[posipost]->setHates();
+				}else{
+					cout << "No sigue a nadie"<<endl;
+				}
+				break;
+			}
+			case 5:{
+				for(int i = 0 ; i < Lista.size() ; i++){
+					cout << i <<"."<< Lista[i]->getNombre() << endl;
+				}
+				do{
+					cout << "Ingrese  el numero de quien va a seguir:";
+					cin >> sigoA;
+				}while(sigoA >= Lista.size() || sigoA < 0);
+				break;
+			}
+			case 6:{
+				if(sigoA != -1){
+					sigoA = -1;
+				}else{
+					cout << "No sigue a nadie"<<endl;
+				}
+				break;
+			}
+			case 7:{
+				cout << "Adios"<< endl;
+				break;
+			}
+		}
+	}while(opcion2!=7);
+}
+void Leercadenas(string&a,string& b){
+	cout << "Titulo:";
+	getline(cin,a);
+	getline(cin,a);
+	cout << "Contenido:";
+	getline(cin,b);
 }
