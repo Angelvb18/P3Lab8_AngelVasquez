@@ -83,7 +83,7 @@ void Inicio(vector<Usuario*>& Lista, Usuario*& Yo){
 				if(sigoA != -1){
 					int posipost;
 					for(int i = 0 ; i <Lista[sigoA]->getPosts().size() ; i++){
-						cout << i <<"."<<Lista[sigoA]->getPosts()[i]->getTitulo() << " " << Lista[sigoA]->getPosts()[i]->getContenido() << endl;
+						cout << i <<"."<<Lista[sigoA]->getPosts()[i]->getTitulo() << "\nContenido:" << Lista[sigoA]->getPosts()[i]->getContenido() <<"\n Likes:"<< Lista[sigoA]->getPosts()[i]->getLikes() <<" Hates:"<< Lista[sigoA]->getPosts()[i]->getHates()<< endl;
 					}
 					cout << "Numero de post:";
 					cin >> posipost;
@@ -92,6 +92,9 @@ void Inicio(vector<Usuario*>& Lista, Usuario*& Yo){
 	                getline(cin,a);
 	                getline(cin,a);
 	                Lista[sigoA]->getPosts()[posipost]->setComentario(new Comentario(Yo->getUsser(),a));
+	                for(int i = 0 ; i <Lista[sigoA]->getPosts()[posipost]->getComentarios().size() ; i++){
+	                	cout << Lista[sigoA]->getPosts()[posipost]->getComentarios()[i]->getUsser() << " " << Lista[sigoA]->getPosts()[posipost]->getComentarios()[i]->getContenido();
+					}
 	                archivo->abrirEscritura();
 				    archivo->guardarUsuarios(Lista);
 				    archivo->cerrarEscritura();
@@ -104,7 +107,7 @@ void Inicio(vector<Usuario*>& Lista, Usuario*& Yo){
 				if(sigoA != -1){
 					int posipost;
 					for(int i = 0 ; i <Lista[sigoA]->getPosts().size() ; i++){
-						cout << i <<"."<<Lista[sigoA]->getPosts()[i]->getTitulo() << " " << Lista[sigoA]->getPosts()[i]->getContenido() << endl;
+						cout << i <<"."<<Lista[sigoA]->getPosts()[i]->getTitulo() << "\nContenido:" << Lista[sigoA]->getPosts()[i]->getContenido() <<"\n Likes:"<< Lista[sigoA]->getPosts()[i]->getLikes() <<" Hates:"<< Lista[sigoA]->getPosts()[i]->getHates()<< endl;
 					}
 					cout << "Numero de post:";
 					cin >> posipost;
@@ -121,7 +124,7 @@ void Inicio(vector<Usuario*>& Lista, Usuario*& Yo){
 				if(sigoA != -1){
 					int posipost;
 					for(int i = 0 ; i <Lista[sigoA]->getPosts().size() ; i++){
-						cout << i <<"."<<Lista[sigoA]->getPosts()[i]->getTitulo() << " " << Lista[sigoA]->getPosts()[i]->getContenido() << endl;
+						cout << i <<"."<<Lista[sigoA]->getPosts()[i]->getTitulo() << "\nContenido:" << Lista[sigoA]->getPosts()[i]->getContenido() <<"\n Likes:"<< Lista[sigoA]->getPosts()[i]->getLikes() <<" Hates:"<< Lista[sigoA]->getPosts()[i]->getHates()<< endl;
 					}
 					cout << "Numero de post:";
 					cin >> posipost;
